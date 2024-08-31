@@ -9,23 +9,21 @@ const Footer = () => {
           <Image src={"/store.svg"} alt="logo" width={50} height={50} />
         </Link>
         <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
-          © 2024 E-commerce 
+          © 2024 E-commerce
           <a
             href="https://twitter.com/knyttneve"
             className="text-gray-600 ml-1"
             rel="noopener noreferrer"
             target="_blank"
           >
-            @obidjon  
+            @obidjon
           </a>
         </p>
         <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
           <a className="text-gray-500">
             <svg
               fill="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
               className="w-5 h-5"
               viewBox="0 0 24 24"
             >
@@ -35,9 +33,7 @@ const Footer = () => {
           <a className="ml-3 text-gray-500">
             <svg
               fill="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinejoin="round"
               className="w-5 h-5"
               viewBox="0 0 24 24"
             >
@@ -48,9 +44,7 @@ const Footer = () => {
             <svg
               fill="none"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeWidth="2"
               className="w-5 h-5"
               viewBox="0 0 24 24"
             >
@@ -62,9 +56,9 @@ const Footer = () => {
             <svg
               fill="currentColor"
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="0"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               className="w-5 h-5"
               viewBox="0 0 24 24"
             >
