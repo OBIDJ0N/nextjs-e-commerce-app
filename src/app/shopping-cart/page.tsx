@@ -1,4 +1,5 @@
 "use client";
+
 import CustomImage from "@/components/image";
 import { ProductType } from "@/interfaces";
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
@@ -8,13 +9,20 @@ import { useEffect, useState } from "react";
 
 const ShoppingCart = () => {
   const [total, setTotal] = useState<number>(0);
-  const [products, setProducts] = useState<ProductType[]>(
-    JSON.parse(localStorage.getItem("carts") as string) || []
-  );
+  const [products, setProducts] = useState<ProductType[]>([]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedProducts = localStorage.getItem("carts");
+      setProducts(storedProducts ? JSON.parse(storedProducts) : []);
+    }
+  }, []);
 
   const removeProduct = (id: number) => {
     const updatedCart = products.filter((product) => product.id !== id);
-    localStorage.setItem("carts", JSON.stringify(updatedCart));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("carts", JSON.stringify(updatedCart));
+    }
     setProducts(updatedCart);
   };
 
@@ -28,13 +36,14 @@ const ShoppingCart = () => {
       }
       return product;
     });
-    localStorage.setItem("carts", JSON.stringify(updatedCart));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("carts", JSON.stringify(updatedCart));
+    }
     setProducts(updatedCart);
   };
+
   const handleDecrement = (id: number) => {
     const existProduct = products.find((product) => product.id === id);
-    console.log(existProduct);
-
     if (existProduct?.quantity === 1) {
       removeProduct(existProduct.id);
     } else {
@@ -47,7 +56,9 @@ const ShoppingCart = () => {
         }
         return product;
       });
-      localStorage.setItem("carts", JSON.stringify(updatedCart));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("carts", JSON.stringify(updatedCart));
+      }
       setProducts(updatedCart);
     }
   };
@@ -127,6 +138,7 @@ const ShoppingCart = () => {
                       type="number"
                       value={product.quantity}
                       min="1"
+                      readOnly
                     />
                     <span
                       onClick={() => handleIncrement(product.id)}
@@ -199,7 +211,7 @@ const ShoppingCart = () => {
               <p className="text-sm text-gray-700">including VAT</p>
             </div>
           </div>
-          <button className="mt-6 w-full rounded-md bg-blue-500 py-4 font-medium  text-blue-50 hover:bg-blue-600">
+          <button className="mt-6 w-full rounded-md bg-blue-500 py-4 font-medium text-blue-50 hover:bg-blue-600">
             Check out
           </button>
         </div>
@@ -214,31 +226,44 @@ const ShoppingCart = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              strokeWidth="2"
               stroke="currentColor"
               className="w-6 h-6"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
               />
             </svg>
           </p>
-          <h1 className="text-2xl font-semibold text-gray-800 text-white md:text-3xl">
+          <h1 className="text-2xl font-semibold text-gray-800 md:text-3xl">
             Shopping cart is empty
           </h1>
           <p className="mt-4 text-gray-500">
-            The page you are looking for doesn't exist. Here are some helpful
-            links:
+            No products in your cart. Check out our trending items and discover
+            something you'll love.
           </p>
-          <div className="flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto">
-            <Link href={"/products"}>
-              <button className="button bg-blue-600 text-white border-transparent hover:border-blue-600 hover:bg-transparent hover:text-black">
-                All products
-              </button>
-            </Link>
-          </div>
+          <Link
+            href="/products"
+            className="flex items-center justify-center w-full px-5 py-2 mt-6 text-sm text-blue-500 duration-300 border rounded-lg gap-x-2 hover:bg-blue-50"
+          >
+            <span>Shop Now</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.25 6.75L21 12m0 0l-3.75 5.25M21 12H3"
+              />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>
